@@ -1,0 +1,110 @@
+﻿@page
+@model attendance.monthlyreportModel
+@{
+    ViewData["Title"] = "monthlyreport";
+    int i = 1;
+}
+
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-12 ">
+                    <!-- Custom tabs (Charts with tabs)-->
+                    <div class="nav-tabs-custom">
+
+
+
+                        <!-- TO DO List -->
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="col-md-4"> <h3 class="box-title">Monthly Attendance </h3> </div>
+                                <input type="hidden" id="urlpath" value="@ViewData["basePath"]" />
+
+                                <form method="post">
+                                    <div class="col-md-4">
+                                        By Month
+                                        <div class="input-group input-group-sm">
+
+                                            <select class="form-control" asp-for="monthsearch" required>
+                                                <option value='0'>--Select Month--</option>
+                                                <option value='01'>Janaury</option>
+                                                <option value='02'>February</option>
+                                                <option value='03'>March</option>
+                                                <option value='04'>April</option>
+                                                <option value='05'>May</option>
+                                                <option value='06'>June</option>
+                                                <option value='07'>July</option>
+                                                <option value='08'>August</option>
+                                                <option value='09'>September</option>
+                                                <option value='10'>October</option>
+                                                <option value='11'>November</option>
+                                                <option value='12'>December</option>
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <button type="submit" name="savemore" value="monthlysearch" class="btn btn-info btn-flat">Go!</button>
+                                            </span>
+                                            <span class="input-group-btn">
+                                                <button asp-page-handler="Export" class="btn btn-warning" name="savemore" value="Export">Export</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                               
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <div style="overflow:scroll">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 10px">S.No	</th>
+                                            <th>Name</th>
+                                            <th>Date</th>
+                                            <th>Time In	</th>
+                                            <th>Time Out</th>
+
+                                        </tr>
+                                        @if (Model.AttendanceData.Count != 0)
+                                        {
+                                            foreach (var item in Model.AttendanceData)
+                                            {
+                                                <tr>
+                                                    <td>@i</td>
+                                                    <td>@item.Employeeid</td>
+                                                     <td>@item.Date</td>
+                                                    <td>@item.Timein</td>
+                                                    <td>@item.Timeout</td>
+
+                                                </tr>
+                                                i++;
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <tr><h6 align="center" style="color:black; font-size:14px;font-weight:bold;"> @ViewData["message"]</h6></tr>
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                </section>
+                <!-- /.Left col -->
+
+
+            </div>
+            <!-- /.row (main row) -->
+
+        </section>
+        <!-- /.content -->
+    </div>

@@ -1,0 +1,220 @@
+﻿@page
+@model attendance.attendanceModel
+@{
+    ViewData["Title"] = "attendance";
+}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#timein").change(function () {
+
+                var starttimein = document.getElementById("timein").value;
+                var dt = new Date();
+                var currenthours = dt.getHours();
+                var currentmin = dt.getMinutes();
+                var currenttime = currenthours + ":" + currentmin;
+                dt.setMinutes(dt.getMinutes() - 30);
+               
+                var hours = dt.getHours();
+                var min = dt.getMinutes();
+                var time = hours + ":" + min;
+
+                var startTime = moment(starttimein, "HH:mm");
+                var endTime = moment(time, "HH:mm");
+
+                var duration = moment.duration(endTime.diff(startTime));
+
+               var hours = parseInt(duration.asHours());
+
+                var minutes = parseInt(duration.asMinutes()) % 60;
+                
+                if (hours == 0) {
+                    //if (minutes < 30 && minutes > -30) {
+                    //    document.getElementById("timein").value = currenttime;
+                    //}
+                    //else {
+                        
+                    //}
+                }
+                else {
+                    document.getElementById("timein").value = currenttime;
+                }
+     
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#timeout").change(function () {
+               // alert("aa");
+                var starttimeout = document.getElementById("timeout").value;
+                var dt = new Date();
+                var currenthours = dt.getHours();
+                var currentmin = dt.getMinutes();
+                var currenttime = currenthours + ":" + currentmin;
+                dt.setMinutes(dt.getMinutes() - 30);
+
+                var hours = dt.getHours();
+                var min = dt.getMinutes();
+                var time = hours + ":" + min;
+
+                var startTime = moment(starttimeout, "HH:mm");
+                var endTime = moment(time, "HH:mm");
+
+                var duration = moment.duration(endTime.diff(startTime));
+
+                var hours = parseInt(duration.asHours());
+
+                var minutes = parseInt(duration.asMinutes()) % 60;
+               
+                if (hours == -1) {
+                   
+                    //if (minutes < 30 && minutes < -30) {
+                    //    alert(minutes);
+                    //      document.getElementById("timeout").value = currenttime;
+                    //}
+                    //else {
+                      
+                    //}
+                }
+                else {
+                    document.getElementById("timeout").value = currenttime;
+                }
+
+            });
+        });
+    </script>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    @*<section class="content-header">
+            <h1>
+                Dashboard
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active"><a href="AddStudent">Add Student</a></li>
+                <li><a href="StudentData">View Students</a></li>
+            </ol>
+        </section>*@
+
+
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Main row -->
+        <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-12">
+                <!-- Custom tabs (Charts with tabs)-->
+                <div class="nav-tabs-custom">
+
+                    <!-- TO DO List -->
+                    <div class="box box-primary">
+
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="tab-pane" id="tab_2">
+
+                                        <div class="row container">
+                                            <h3 class="section">Attendance</h3>
+                                        </div>
+                                        <div class="row">
+                                            <hr />
+
+                                            <table width="100%">
+                                                <tr width="100%">
+                                                    <td width="50%">
+                                                        <form method="post">
+
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                                                <div class="row">
+
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Time In</label>
+                                                                            <input type="time" asp-for="timein" min="08:30" max="18:00">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="col-md-6 col-md-offset-3">
+                                                                            <a href="dashboard" class="btn btn-primary">Back</a>
+                                                                            <input type="submit" class="btn btn-success" value="Save" name="savemore">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+
+
+                                                            </div>
+                                                        </form>
+
+                                                    </td>
+                                                    
+                                                    <td width="50%">
+
+                                                        <form method="post">
+
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                                                <div class="row">
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">Time Out</label>
+                                                                            <input type="time" asp-for="timeout" min="09:00" max="22:00">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="col-md-6 col-md-offset-3">
+                                                                            <a href="dashboard" class="btn btn-primary">Back</a>
+                                                                            <input type="submit" class="btn btn-success" value="Save." name="savemore">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+
+
+                                                            </div>
+                                                        </form>
+                                                    </td>
+                                                </tr></table>
+                                            
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+
+
+    <!-- right col -->
+</div>
+

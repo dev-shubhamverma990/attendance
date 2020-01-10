@@ -1,0 +1,96 @@
+﻿@page
+@model attendance.amonthlyreportModel
+@{
+    ViewData["Title"] = "amonthlyreport";
+    int i = 1;
+}
+
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-12 ">
+                    <!-- Custom tabs (Charts with tabs)-->
+                    <div class="nav-tabs-custom">
+
+
+
+                        <!-- TO DO List -->
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <div class="col-md-4"> <h3 class="box-title">@Model.monthname Attendance </h3> </div>
+                                <input type="hidden" id="urlpath" value="@ViewData["basePath"]" />
+
+
+
+                            </div>
+
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <div style="overflow:scroll">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 10px">S.No	</th>
+                                            <th>Name</th>
+                                            <th>Date</th>
+                                            <th>Time In	</th>
+                                            <th>Time Out</th>
+
+                                        </tr>
+                                        @if (Model.EmployeeData.Count != 0)
+                                        {
+                                            foreach (var item in Model.EmployeeData)
+                                            {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.Employeeid</td>
+                                            <td>@item.Date</td>
+                                            <td>@item.Timein</td>
+                                            <td>@item.Timeout</td>
+
+                                        </tr>
+                                                i++;
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                        <tr><h6 align="center" style="color:black; font-size:14px;font-weight:bold;"> "No data found"</h6></tr>
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <form method="post">
+                                <div class="col-md-4">
+
+                                    <div class="input-group input-group-sm">
+
+                                        <span class="input-group-btn">
+                                            <button asp-page-handler="Export" class="btn btn-warning" name="savemore" value="Export">Export</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+
+                </section>
+                <!-- /.Left col -->
+
+
+            </div>
+            <!-- /.row (main row) -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+
